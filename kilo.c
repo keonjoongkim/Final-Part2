@@ -1,6 +1,8 @@
 #include <termios.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <stdio.h>
 
 struct termios orig_termios;
 void disableRawMode() {
