@@ -414,6 +414,7 @@ void initEditor() {
   E.row = NULL;
   
   if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
+  E.screenrows -= 1;
 }
 
 
