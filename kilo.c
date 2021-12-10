@@ -629,22 +629,31 @@ void editorProcessKeypress() {
       write(STDOUT_FILENO, "\x1b[H", 3);
       exit(0);
       break;
+      
     case CTRL_KEY('s'):
       editorSave();
       break;
+      
     case HOME_KEY:
       E.cx = 0;
       break;
+      
     case END_KEY:
       if (E.cy < E.numrows)
         E.cx = E.row[E.cy].size;
       break;
+      
+    case CTRL_KEY('f'):
+      editorFind();
+      break;
+      
     case BACKSPACE:
     case CTRL_KEY('h'):
     case DEL_KEY:
       if (c == DEL_KEY) editorMoveCursor(ARROW_RIGHT);
       editorDelChar();
       break;
+      
     case PAGE_UP:
     case PAGE_DOWN:
       {
@@ -703,7 +712,8 @@ int main(int argc, char *argv[]) {
     editorOpen(argv[1]);
   }
   
-  editorSetStatusMessage("HELP: Ctrl-S = save | Ctrl-Q = quit");
+  editorSetStatusMessage(
+    "HELP: Ctrl-S = save | Ctrl-Q = quit | Ctrl-F = find");
   
   while (1) {
     editorRefreshScreen();
