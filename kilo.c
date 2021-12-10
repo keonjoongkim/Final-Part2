@@ -469,18 +469,26 @@ void editorProcessKeypress() {
     case '\r':
       /* TODO */
       break;
+      
     case CTRL_KEY('q'):
       write(STDOUT_FILENO, "\x1b[2J", 4);
       write(STDOUT_FILENO, "\x1b[H", 3);
       exit(0);
       break;
+      
+    case CTRL_KEY('s'):
+      editorSave();
+      break;
+      
     case HOME_KEY:
       E.cx = 0;
       break;
+      
     case END_KEY:
       if (E.cy < E.numrows)
         E.cx = E.row[E.cy].size;
       break;
+      
     case BACKSPACE:
     case CTRL_KEY('h'):
     case DEL_KEY:
