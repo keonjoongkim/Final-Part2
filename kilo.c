@@ -544,13 +544,11 @@ void editorMoveCursor(int key) {
 
 void editorProcessKeypress() {
   static int quit_times = KILO_QUIT_TIMES;
-  
   int c = editorReadKey();
   switch (c) {
     case '\r':
-      /* TODO */
+      editorInsertNewline();
       break;
-      
     case CTRL_KEY('q'):
       if (E.dirty && quit_times > 0) {
         editorSetStatusMessage("WARNING!!! File has unsaved changes. "
@@ -562,27 +560,22 @@ void editorProcessKeypress() {
       write(STDOUT_FILENO, "\x1b[H", 3);
       exit(0);
       break;
-      
     case CTRL_KEY('s'):
       editorSave();
       break;
-      
     case HOME_KEY:
       E.cx = 0;
       break;
-      
     case END_KEY:
       if (E.cy < E.numrows)
         E.cx = E.row[E.cy].size;
       break;
-      
     case BACKSPACE:
     case CTRL_KEY('h'):
     case DEL_KEY:
       if (c == DEL_KEY) editorMoveCursor(ARROW_RIGHT);
       editorDelChar();
       break;
-      
     case PAGE_UP:
     case PAGE_DOWN:
       {
@@ -610,9 +603,9 @@ void editorProcessKeypress() {
       editorInsertChar(c);
       break;
   }
-  
   quit_times = KILO_QUIT_TIMES;
 }
+
 
 /*** init ***/
 
