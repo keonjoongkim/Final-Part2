@@ -418,11 +418,11 @@ void editorUpdateRow(erow *row) {
   editorUpdateSyntax(row);
 }
 
-
 void editorInsertRow(int at, char *s, size_t len) {
   if (at < 0 || at > E.numrows) return;
   E.row = realloc(E.row, sizeof(erow) * (E.numrows + 1));
   memmove(&E.row[at + 1], &E.row[at], sizeof(erow) * (E.numrows - at));
+  for (int j = at + 1; j <= E.numrows; j++) E.row[j].idx++;
   E.row[at].idx = at;
   E.row[at].size = len;
   E.row[at].chars = malloc(len + 1);
@@ -442,10 +442,12 @@ void editorFreeRow(erow *row) {
   free(row->chars);
   free(row->hl);
 }
+
 void editorDelRow(int at) {
   if (at < 0 || at >= E.numrows) return;
   editorFreeRow(&E.row[at]);
   memmove(&E.row[at], &E.row[at + 1], sizeof(erow) * (E.numrows - at - 1));
+  for (int j = at; j < E.numrows - 1; j++) E.row[j].idx--;
   E.numrows--;
   E.dirty++;
 }
