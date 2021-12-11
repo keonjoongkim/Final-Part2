@@ -49,7 +49,6 @@ enum editorHighlight {
   HL_MATCH
 };
 
-
 #define HL_HIGHLIGHT_NUMBERS (1<<0)
 #define HL_HIGHLIGHT_STRINGS (1<<1)
 
@@ -646,7 +645,6 @@ void editorFindCallback(char *query, int key) {
     }
   }
 }
-
 
 void editorFind() {
   int saved_cx = E.cx;
