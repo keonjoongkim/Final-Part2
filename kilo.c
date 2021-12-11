@@ -419,6 +419,7 @@ void editorSave() {
 
 /*** find ***/
 
+
 void editorFindCallback(char *query, int key) {
   static int last_match = -1;
   static int direction = 1;
@@ -448,6 +449,7 @@ void editorFindCallback(char *query, int key) {
       E.cy = current;
       E.cx = editorRowRxToCx(row, match - row->render);
       E.rowoff = E.numrows;
+      memset(&row->hl[match - row->render], HL_MATCH, strlen(query));
       break;
     }
   }
