@@ -435,12 +435,15 @@ char *editorRowsToString(int *buflen) {
   return buf;
 }
 
-
 void editorOpen(char *filename) {
   free(E.filename);
   E.filename = strdup(filename);
+  
+  editorSelectSyntaxHighlight();
+  
   FILE *fp = fopen(filename, "r");
   if (!fp) die("fopen");
+  
   char *line = NULL;
   size_t linecap = 0;
   ssize_t linelen;
@@ -462,7 +465,9 @@ void editorSave() {
       editorSetStatusMessage("Save aborted");
       return;
     }
+    editorSelectSyntaxHighlight();
   }
+  
   int len;
   char *buf = editorRowsToString(&len);
   int fd = open(E.filename, O_RDWR | O_CREAT, 0644);
