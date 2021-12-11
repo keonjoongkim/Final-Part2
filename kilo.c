@@ -116,7 +116,6 @@ struct editorSyntax HLDB[] = {
 
 #define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
 
-
 /*** prototypes ***/
 
 void editorSetStatusMessage(const char *fmt, ...);
@@ -772,7 +771,6 @@ void editorDrawRows(struct abuf *ab) {
   }
 }
 
-
 void editorDrawStatusBar(struct abuf *ab) {
   abAppend(ab, "\x1b[7m", 4);
   char status[80], rstatus[80];
@@ -803,7 +801,6 @@ void editorDrawMessageBar(struct abuf *ab) {
   if (msglen && time(NULL) - E.statusmsg_time < 5)
     abAppend(ab, E.statusmsg, msglen);
 }
-
 
 void editorRefreshScreen() {
   editorScroll();
@@ -982,7 +979,6 @@ void editorProcessKeypress() {
   quit_times = KILO_QUIT_TIMES;
 }
 
-
 /*** init ***/
 
 void initEditor() {
@@ -1002,7 +998,6 @@ void initEditor() {
   if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
   E.screenrows -= 2;
 }
-
 
 int main(int argc, char *argv[]) {
   enableRawMode();
